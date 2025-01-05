@@ -24,6 +24,8 @@ from .missiontarget import MissionTarget
 from ..data.groups import GroupTask
 from ..utils import Distance, Heading, meters
 
+from game.settings import Settings  #  TODO ---------
+
 if TYPE_CHECKING:
     from game.ato.flighttype import FlightType
     from game.threatzones import ThreatPoly
@@ -64,7 +66,8 @@ class TheaterGroundObject(MissionTarget, SidcDescribable, ABC):
         control_point: ControlPoint,
         sea_object: bool,
         task: Optional[GroupTask],
-        hide_on_mfd: bool = False,
+        # hide_on_mfd: bool = False,   #  TODO  -----   original FALSE, default value for TGO in campaign
+        hide_on_mfd: bool = Settings.hidden_on_mfd_option,  # was False
     ) -> None:
         super().__init__(name, location)
         self.id = uuid.uuid4()

@@ -1086,6 +1086,12 @@ class Settings:
         GAMEPLAY_SECTION,
         default=True,
     )
+    hidden_on_mfd_option: bool = boolean_option(  # TODO ----------
+        "Hidden on MFD for all radars",
+        MISSION_GENERATOR_PAGE,
+        GAMEPLAY_SECTION,
+        default=True,
+    )
 
     # Performance
     perf_smoke_gen: bool = boolean_option(
