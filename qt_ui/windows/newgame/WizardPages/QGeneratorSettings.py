@@ -132,6 +132,8 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         self.registerField("f106_deltadart", self.f106_deltadart)
         self.jas39_gripen = QtWidgets.QCheckBox()
         self.registerField("jas39_gripen", self.jas39_gripen)
+        self.mirage_3 = QtWidgets.QCheckBox()
+        self.registerField("mirage_3", self.mirage_3)
         self.super_etendard = QtWidgets.QCheckBox()
         self.registerField("super_etendard", self.super_etendard)
         self.sk_60 = QtWidgets.QCheckBox()
@@ -164,6 +166,10 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         self.registerField("chinesemilitaryassetspack", self.chinesemilitaryassetspack)
         self.russianmilitaryassetspack = QtWidgets.QCheckBox()
         self.registerField("russianmilitaryassetspack", self.russianmilitaryassetspack)
+        self.usamilitaryassetspack = QtWidgets.QCheckBox()
+        self.registerField("usamilitaryassetspack", self.usamilitaryassetspack)
+        self.ukrainemilitaryassetspack = QtWidgets.QCheckBox()
+        self.registerField("ukrainemilitaryassetspack", self.ukrainemilitaryassetspack)
 
         modHelpText = QtWidgets.QLabel(
             "<p>Select the mods you have installed. If your chosen factions support them, you'll be able to use these mods in your campaign.</p>"
@@ -191,6 +197,14 @@ class GeneratorOptions(QtWidgets.QWizardPage):
                 "CurrentHill Swedish Military Assets pack (1.10)",
                 self.swedishmilitaryassetspack,
             ),
+            (
+                "CurrentHill USA Military Assets pack (1.1.5)",
+                self.usamilitaryassetspack,
+            ),
+            (
+                "CurrentHill Ukraine Military Assets pack (1.1.1)",
+                self.ukrainemilitaryassetspack,
+            ),
             ("EA-6B Prowler (v2.9.4.102)", self.ea6b_prowler),
             ("F-100 Super Sabre (v2.7.18.30765 patch 20.10.22)", self.f100_supersabre),
             ("F-104 Starfighter (v2.7.11.222.01)", self.f104_starfighter),
@@ -199,7 +213,7 @@ class GeneratorOptions(QtWidgets.QWizardPage):
             ("F-15D Baz (v1.0)", self.f15d_baz),
             ("F-15I Ra'am (v1.0 by IDF Mods Project)", self.f_15_idf),
             ("F-16I Sufa & F-16D (v3.6 by IDF Mods Project)", self.f_16_idf),
-            ("F-22A Raptor", self.f22_raptor),
+            ("F-22A Raptor (v3.0)", self.f22_raptor),
             ("F-4B/C Phantom II (2.8.7.204)", self.f4bc_phantom),
             ("F-84G Thunderjet (v2.5.7.01)", self.f84g_thunderjet),
             ("F9F Panther (v2.8.7.101)", self.f9f_panther),
@@ -209,6 +223,7 @@ class GeneratorOptions(QtWidgets.QWizardPage):
             ("High Digit SAMs", self.high_digit_sams),
             ("IDF Assets Pack (v1.1 by IDF Mods Project)", self.irondome),
             ("JAS 39 Gripen (v1.8.5-beta)", self.jas39_gripen),
+            ("Mirage III (v2.5.7.01)", self.mirage_3),
             ("OH-6 Cayuse (v1.2)", self.oh_6),
             ("OH-6 Vietnam Asset Pack (v1.0)", self.oh_6_vietnamassetpack),
             ("OV-10A Bronco", self.ov10a_bronco),
@@ -277,6 +292,7 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         self.f106_deltadart.setChecked(s.get("f106_deltadart", False))
         self.jas39_gripen.setChecked(s.get("jas39_gripen", False))
         self.sk_60.setChecked(s.get("sk_60", False))
+        self.mirage_3.setChecked(s.get("mirage_3", False))
         self.super_etendard.setChecked(s.get("super_etendard", False))
         self.su30_flanker_h.setChecked(s.get("su30_flanker_h", False))
         self.su57_felon.setChecked(s.get("su57_felon", False))
@@ -294,4 +310,8 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         )
         self.russianmilitaryassetspack.setChecked(
             s.get("russianmilitaryassetspack", False)
+        )
+        self.usamilitaryassetspack.setChecked(s.get("usamilitaryassetspack", False))
+        self.ukrainemilitaryassetspack.setChecked(
+            s.get("ukrainemilitaryassetspack", False)
         )

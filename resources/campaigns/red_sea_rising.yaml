@@ -2,7 +2,7 @@
 name: Sinai - Red Sea Rising
 theater: Sinai
 authors: Starfire
-recommended_player_faction: Bluefor Modern
+recommended_player_faction: Blufor Current
 recommended_enemy_faction: Redfor (China) 2020
 description:
     <p><strong>This is a sequel to the Afghanistan campaign - Graveyard of Empires. This campaign 
@@ -26,10 +26,12 @@ performance: 1
 recommended_start_date: 2003-01-11
 version: "10.7"
 settings:
+  usamilitaryassetspack: true
   chinesemilitaryassetspack: true
   hercules: true
   squadron_start_full: true
 squadrons:
+  #Ownfor Carrier
   Blue CV-1:
     - primary: SEAD
       secondary: any
@@ -50,7 +52,7 @@ squadrons:
       aircraft:
         - AV-8B Harrier II Night Attack
       size: 16
-    - primary: CAS
+    - primary: Escort
       secondary: any
       aircraft:
         - OH-58D(R) Kiowa Warrior
@@ -76,7 +78,13 @@ squadrons:
       secondary: air-to-ground
       aircraft:
         - A-10C Thunderbolt II (Suite 7)
-      size: 8    
+      size: 8
+    - primary: Strike
+      secondary: air-to-ground
+      aircraft:
+        - "[CH] B-21"
+        - F-117A Nighthawk
+      size: 16
   #Tel Nof
   23:
     - primary: Escort
@@ -94,7 +102,7 @@ squadrons:
       aircraft:
         - F-16CM Fighting Falcon (Block 50)
       size: 12
-    - primary: BAI
+    - primary: CAS
       secondary: any
       aircraft:
         - AH-64D Apache Longbow
@@ -208,6 +216,7 @@ squadrons:
       aircraft:
         - MiG-29S Fulcrum-C
       size: 8
+  #Opfor Carrier
   Red CV-1:
     - primary: BARCAP
       secondary: any
