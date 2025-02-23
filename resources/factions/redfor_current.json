@@ -15,6 +15,7 @@
     "L-39ZA Albatros",
     "Mi-24V Hind-E",
     "Mi-24P Hind-F",
+    "Mi-26",
     "Mi-28N Havoc",
     "Mi-8MTV2 Hip",
     "MiG-21bis Fishbed-N",
@@ -104,7 +105,6 @@
   "missiles": [
     "[CH] Iskander-M SRBM",
     "[CH] Iskander-K GLCM",
-    "[CH] DF-21D LBASBM",
     "[CH] CJ-10 GLCM",
     "[CH] YJ-12B LBASM"
   ],
@@ -127,6 +127,7 @@
     "BUK M3",
     "HQ-2",
     "HQ-22",
+    "S-350",
     "Silkworm",
     "Chinese Navy",
     "[CH] Russian Navy"

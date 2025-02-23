@@ -27,6 +27,8 @@ from pydcs_extensions import highdigitsams as hds
 from pydcs_extensions import vietnamwarvessels as vwv
 from pydcs_extensions import chinesemilitaryassetspack as cmap
 from pydcs_extensions import russianmilitaryassetspack as rmap
+from pydcs_extensions import swedishmilitaryassetspack as smap
+from pydcs_extensions import usamilitaryassetspack as usamap
 
 
 TELARS = {
@@ -64,6 +66,16 @@ TRACK_RADARS = {
     cmap.CH_HQ22_STR,
     rmap.CH_BukM3_9S36M,
     rmap.CH_S350_50N6,
+    smap.LvS_103_PM103,
+    smap.LvS_103_PM103_HX,
+    smap.UndE23,
+    usamap.MIM104_ANMPQ65,
+    usamap.MIM104_ANMPQ65A,
+    usamap.MIM104_ANMPQ65_HEMTT,
+    usamap.MIM104_ANMPQ65A_HEMTT,
+    usamap.MIM104_LTAMDS,
+    usamap.MIM104_LTAMDS_HEMTT,
+    usamap.CH_THAAD_ANTPY2,
 }
 
 LAUNCHER_TRACKER_PAIRS = {
@@ -102,6 +114,58 @@ LAUNCHER_TRACKER_PAIRS = {
     rmap.CH_BukM3_9A317MA: (rmap.CH_BukM3_9S36M,),
     rmap.CH_S350_50P6_9M96D: (rmap.CH_S350_50N6,),
     rmap.CH_S350_50P6_9M100: (rmap.CH_S350_50N6,),
+    smap.LvS_103_Lavett103_Rb103A: (
+        smap.LvS_103_PM103,
+        smap.LvS_103_PM103_HX,
+    ),
+    smap.LvS_103_Lavett103_HX_Rb103A: (
+        smap.LvS_103_PM103,
+        smap.LvS_103_PM103_HX,
+    ),
+    smap.LvS_103_Lavett103_Rb103B: (
+        smap.LvS_103_PM103,
+        smap.LvS_103_PM103_HX,
+    ),
+    smap.LvS_103_Lavett103_HX_Rb103B: (
+        smap.LvS_103_PM103,
+        smap.LvS_103_PM103_HX,
+    ),
+    smap.RBS_70: (smap.UndE23,),
+    smap.RBS_90: (smap.UndE23,),
+    smap.RBS_98: (smap.UndE23,),
+    usamap.MIM104_M903_PAC2: (
+        usamap.MIM104_ANMPQ65,
+        usamap.MIM104_ANMPQ65A,
+        usamap.MIM104_LTAMDS,
+        usamap.MIM104_ANMPQ65_HEMTT,
+        usamap.MIM104_ANMPQ65A_HEMTT,
+        usamap.MIM104_LTAMDS_HEMTT,
+    ),
+    usamap.MIM104_M903_PAC3: (
+        usamap.MIM104_ANMPQ65,
+        usamap.MIM104_ANMPQ65A,
+        usamap.MIM104_LTAMDS,
+        usamap.MIM104_ANMPQ65_HEMTT,
+        usamap.MIM104_ANMPQ65A_HEMTT,
+        usamap.MIM104_LTAMDS_HEMTT,
+    ),
+    usamap.MIM104_M903_PAC2_HEMTT: (
+        usamap.MIM104_ANMPQ65,
+        usamap.MIM104_ANMPQ65A,
+        usamap.MIM104_LTAMDS,
+        usamap.MIM104_ANMPQ65_HEMTT,
+        usamap.MIM104_ANMPQ65A_HEMTT,
+        usamap.MIM104_LTAMDS_HEMTT,
+    ),
+    usamap.MIM104_M903_PAC3_HEMTT: (
+        usamap.MIM104_ANMPQ65,
+        usamap.MIM104_ANMPQ65A,
+        usamap.MIM104_LTAMDS,
+        usamap.MIM104_ANMPQ65_HEMTT,
+        usamap.MIM104_ANMPQ65A_HEMTT,
+        usamap.MIM104_LTAMDS_HEMTT,
+    ),
+    usamap.CH_THAAD_M1120: (usamap.CH_THAAD_ANTPY2,),
 }
 
 UNITS_WITH_RADAR = {
@@ -154,6 +218,20 @@ UNITS_WITH_RADAR = {
     rmap.CH_S350_50N6,
     rmap.CH_BukM3_9S18M13,
     rmap.CH_BukM3_9S36M,
+    rmap.CH_BukM3_9A317M,
+    rmap.CH_BukM3_9A317MA,
+    smap.LvS_103_PM103,
+    smap.LvS_103_PM103_HX,
+    smap.UndE23,
+    usamap.CH_Centurion_C_RAM,
+    usamap.CH_NASAMS3_SR,
+    usamap.MIM104_ANMPQ65,
+    usamap.MIM104_ANMPQ65A,
+    usamap.MIM104_LTAMDS,
+    usamap.MIM104_ANMPQ65_HEMTT,
+    usamap.MIM104_ANMPQ65A_HEMTT,
+    usamap.MIM104_LTAMDS_HEMTT,
+    usamap.CH_THAAD_ANTPY2,
     # Ships
     ALBATROS,
     CVN_71,
@@ -194,4 +272,9 @@ UNITS_WITH_RADAR = {
     rmap.CH_Grigorovich_LACM,
     rmap.CH_Gremyashchiy_AShM,
     rmap.CH_Gremyashchiy_LACM,
+    usamap.CH_Constellation,
+    usamap.CH_Arleigh_Burke_IIA,
+    usamap.CH_Arleigh_Burke_III,
+    usamap.CH_Ticonderoga,
+    usamap.CH_Ticonderoga_CMP,
 }
