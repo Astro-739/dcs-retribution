@@ -7,6 +7,7 @@
     "ru_RU"
   ],
   "aircrafts": [
+    "An-26B",
     "IL-76MD",
     "Mi-24V Hind-E",
     "Mi-24P Hind-F",
@@ -22,6 +23,7 @@
     "Su-24M Fencer-D",
     "Su-25 Frogfoot",
     "Su-27 Flanker-B",
+    "Tu-128M Fiddler",
     "Tu-142 Bear-F",
     "Tu-22M3 Backfire-C",
     "Tu-95MS Bear-H"

@@ -40,12 +40,14 @@ from dcs.ships import (
     Stennis,
     Type_071,
     hms_invincible,
+    Essex,
 )
 from dcs.terrain.terrain import Airport, ParkingSlot
 from dcs.unitgroup import ShipGroup, StaticGroup
 from dcs.unittype import ShipType
 
 from game.ato.closestairfields import ObjectiveDistanceCache
+from game.controlpoint_influenceradius import ControlPointInfluenceRadius
 from game.ground_forces.combat_stance import CombatStance
 from game.point_with_heading import PointWithHeading
 from game.runways import RunwayAssigner, RunwayData
@@ -377,6 +379,7 @@ class ControlPoint(MissionTarget, SidcDescribable, ABC):
         theater: ConflictTheater,
         starts_blue: bool,
         cptype: ControlPointType = ControlPointType.AIRBASE,
+        is_invisible: bool = False,
     ) -> None:
         super().__init__(name, position)
         self.id = uuid.uuid4()
@@ -384,6 +387,7 @@ class ControlPoint(MissionTarget, SidcDescribable, ABC):
         self.at = at
         self.theater = theater
         self.starts_blue = starts_blue
+        self.is_invisible = is_invisible
         self.connected_objectives: List[TheaterGroundObject] = []
         self.preset_locations = PresetLocations()
         self.helipads: List[PointWithHeading] = []
@@ -413,6 +417,8 @@ class ControlPoint(MissionTarget, SidcDescribable, ABC):
 
         # Initialized late because ControlPoints are constructed before the game is.
         self._front_line_db: Database[FrontLine] | None = None
+
+        self.influence_radius: ControlPointInfluenceRadius | None = None
 
     def __repr__(self) -> str:
         return f"<{self.__class__}: {self.name}>"
@@ -1207,6 +1213,7 @@ class Airfield(ControlPoint, CTLD):
         theater: ConflictTheater,
         starts_blue: bool,
         ctld_zones: Optional[List[Tuple[Point, float]]] = None,
+        influence_zone: Optional[List[Tuple[Point, float]]] = None,
     ) -> None:
         super().__init__(
             airport.name,
@@ -1219,6 +1226,7 @@ class Airfield(ControlPoint, CTLD):
         self.airport = airport
         self._runway_status = RunwayStatus()
         self.ctld_zones = ctld_zones
+        self.influence_zone = influence_zone
 
     @property
     def dcs_airport(self) -> Airport:
@@ -1426,6 +1434,7 @@ class NavalControlPoint(
                     CVN_72,
                     CVN_73,
                     CVN_75,
+                    Essex,
                 ]:
                     return True
         return False
@@ -1504,6 +1513,11 @@ class Carrier(NavalControlPoint):
     @property
     def category(self) -> str:
         return "cv"
+
+
+class EssexCarrier(Carrier):
+    def can_operate(self, aircraft: AircraftType) -> bool:
+        return aircraft.lha_capable
 
 
 class Lha(NavalControlPoint):
@@ -1618,12 +1632,16 @@ class Fob(ControlPoint, RadioFrequencyContainer, CTLD):
         theater: ConflictTheater,
         starts_blue: bool,
         ctld_zones: Optional[List[Tuple[Point, float]]] = None,
+        is_invisible: bool = False,
+        influence_zone: Optional[List[Tuple[Point, float]]] = None,
     ) -> None:
         super().__init__(
             name, at, at, theater, starts_blue, cptype=ControlPointType.FOB
         )
         self.name = name
         self.ctld_zones = ctld_zones
+        self.is_invisible = is_invisible
+        self.influence_zone = influence_zone
 
     @property
     def symbol_set_and_entity(self) -> tuple[SymbolSet, Entity]:

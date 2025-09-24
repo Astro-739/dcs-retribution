@@ -41,6 +41,8 @@ from game.radio.channels import (
     WarthogChannelNamer,
     PhantomChannelNamer,
     KiowaChannelNamer,
+    ARC5RadioChannelAllocator,
+    ARC5ChannelNamer,
 )
 from game.utils import (
     Distance,
@@ -94,6 +96,7 @@ class RadioConfig:
             return None
         allocator_type: Type[RadioChannelAllocator] = {
             "SCR-522": SCR522RadioChannelAllocator,
+            "ARC-5": ARC5RadioChannelAllocator,
             "common": CommonRadioChannelAllocator,
             "farmer": FarmerRadioChannelAllocator,
             "noop": NoOpChannelAllocator,
@@ -105,6 +108,7 @@ class RadioConfig:
     def make_namer(cls, config: dict[str, Any]) -> Type[ChannelNamer]:
         return {
             "SCR-522": SCR522ChannelNamer,
+            "ARC-5": ARC5ChannelNamer,
             "default": ChannelNamer,
             "huey": HueyChannelNamer,
             "mirage": MirageChannelNamer,
@@ -228,6 +232,14 @@ class AircraftType(UnitType[Type[FlyingType]]):
     # not take up a weapons station. If True, do not replace LGBs with dumb bombs
     # when no TGP is mounted on any station.
     has_built_in_target_pod: bool
+
+    # indicates if the aircraft has a built-in jammer allowing Defensive EWJamming to be used
+    # without the need for a jamming pod
+    has_built_in_ecm: bool
+
+    # Indicates if the aircraft has a built in jammer allowing Offensive EWJamming to be used
+    # without the need for a jamming pod
+    has_built_in_jamming: bool
 
     task_priorities: dict[FlightType, int]
     laser_code_configs: list[LaserCodeConfig]
@@ -591,6 +603,8 @@ class AircraftType(UnitType[Type[FlyingType]]):
             can_carry_crates=data.get("can_carry_crates", aircraft.helicopter),
             task_priorities=task_priorities,
             has_built_in_target_pod=data.get("has_built_in_target_pod", False),
+            has_built_in_ecm=data.get("has_built_in_ecm", False),
+            has_built_in_jamming=data.get("has_built_in_jamming", False),
             laser_code_configs=[
                 LaserCodeConfig.from_yaml(d) for d in data.get("laser_codes", [])
             ],

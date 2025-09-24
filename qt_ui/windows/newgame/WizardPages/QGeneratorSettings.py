@@ -96,6 +96,8 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         self.registerField("a7e_corsair2", self.a7e_corsair2)
         self.ea6b_prowler = QtWidgets.QCheckBox()
         self.registerField("ea6b_prowler", self.ea6b_prowler)
+        self.e7a_wedgetail = QtWidgets.QCheckBox()
+        self.registerField("e7a_wedgetail", self.e7a_wedgetail)
         self.hercules = QtWidgets.QCheckBox()
         self.registerField("hercules", self.hercules)
         self.oh_6 = QtWidgets.QCheckBox()
@@ -170,6 +172,12 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         self.registerField("usamilitaryassetspack", self.usamilitaryassetspack)
         self.ukrainemilitaryassetspack = QtWidgets.QCheckBox()
         self.registerField("ukrainemilitaryassetspack", self.ukrainemilitaryassetspack)
+        self.mig31bm_foxhound = QtWidgets.QCheckBox()
+        self.registerField("mig31bm_foxhound", self.mig31bm_foxhound)
+        self.mam = QtWidgets.QCheckBox()
+        self.registerField("mam", self.mam)
+        self.tornado_adv = QtWidgets.QCheckBox()
+        self.registerField("tornado_adv", self.tornado_adv)
 
         modHelpText = QtWidgets.QLabel(
             "<p>Select the mods you have installed. If your chosen factions support them, you'll be able to use these mods in your campaign.</p>"
@@ -184,7 +192,7 @@ class GeneratorOptions(QtWidgets.QWizardPage):
             ("A-6A Intruder (v2.7.5.01)", self.a6a_intruder),
             ("A-7E Corsair II", self.a7e_corsair2),
             ("C-130J-30 Super Hercules (v6.8.2)", self.hercules),
-            ("Cold War Assets mod (v1.0)", self.coldwarassets),
+            ("Cold War Assets mod (v1.2)", self.coldwarassets),
             (
                 "CurrentHill Chinese Military Assets pack (1.1.4)",
                 self.chinesemilitaryassetspack,
@@ -206,6 +214,7 @@ class GeneratorOptions(QtWidgets.QWizardPage):
                 self.ukrainemilitaryassetspack,
             ),
             ("EA-6B Prowler (v2.9.4.102)", self.ea6b_prowler),
+            ("E-7A Wedgetail (AI Only, EW Capable)", self.e7a_wedgetail),
             ("F-100 Super Sabre (v2.7.18.30765 patch 20.10.22)", self.f100_supersabre),
             ("F-104 Starfighter (v2.7.11.222.01)", self.f104_starfighter),
             ("F-105 Thunderchief (v2.7.12.23x)", self.f105_thunderchief),
@@ -213,16 +222,18 @@ class GeneratorOptions(QtWidgets.QWizardPage):
             ("F-15D Baz (v1.0)", self.f15d_baz),
             ("F-15I Ra'am (v1.0 by IDF Mods Project)", self.f_15_idf),
             ("F-16I Sufa & F-16D (v3.6 by IDF Mods Project)", self.f_16_idf),
-            ("F-22A Raptor (v3.0)", self.f22_raptor),
+            ("F-22A Raptor (v2.0.0 released May 2025)", self.f22_raptor),
             ("F-4B/C Phantom II (2.8.7.204)", self.f4bc_phantom),
             ("F-84G Thunderjet (v2.5.7.01)", self.f84g_thunderjet),
             ("F9F Panther (v2.8.7.101)", self.f9f_panther),
-            ("F/A-18E/F Super Hornet AI Tanker (version 1.4)", self.fa18ef_tanker),
-            ("F/A-18E/F/G Super Hornet (version 2.3.2)", self.fa_18efg),
+            ("F/A-18E/F/G Super Hornet (version 2.4.4)", self.fa_18efg),
+            ("F/A-18E/F Super Hornet AI Tanker (version 2.4.4)", self.fa18ef_tanker),
             ("Frenchpack (v4.9.1)", self.frenchpack),
             ("High Digit SAMs", self.high_digit_sams),
             ("IDF Assets Pack (v1.1 by IDF Mods Project)", self.irondome),
             ("JAS 39 Gripen (v1.8.5-beta)", self.jas39_gripen),
+            ("MiG-31BM (v2.62)", self.mig31bm_foxhound),
+            ("Military Aircraft Mod (v1.7.2 - AI Only)", self.mam),
             ("Mirage III (v2.5.7.01)", self.mirage_3),
             ("OH-6 Cayuse (v1.2)", self.oh_6),
             ("OH-6 Vietnam Asset Pack (v1.0)", self.oh_6_vietnamassetpack),
@@ -231,9 +242,10 @@ class GeneratorOptions(QtWidgets.QWizardPage):
             ("Spanish Naval Assets pack (desdemicabina 3.2.0)", self.spanishnavypack),
             ("Star Wars Modpack 2.54+", self.SWPack),
             ("Su-15 Flagon (v1.0)", self.su15_flagon),
-            ("Su-30 Flanker-H (V2.7.73b)", self.su30_flanker_h),
+            ("Su-30 Flanker-H (v2.8.04b + CWS 3.72)", self.su30_flanker_h),
             ("Su-57 Felon (build-04)", self.su57_felon),
             ("Super Étendard (v2.5.5)", self.super_etendard),
+            ("Tornado F3 ADV (1.0)", self.tornado_adv),
             ("UH-60L Black Hawk (v1.3.1)", self.uh_60l),
             ("Vietnam War Vessels (v0.9.0 by TeTeT)", self.vietnamwarvessels),
         ]
@@ -277,6 +289,7 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         self.a6a_intruder.setChecked(s.get("a6a_intruder", False))
         self.a7e_corsair2.setChecked(s.get("a7e_corsair2", False))
         self.ea6b_prowler.setChecked(s.get("ea6b_prowler", False))
+        self.e7a_wedgetail.setChecked(s.get("e7a_wedgetail", False))
         self.hercules.setChecked(s.get("hercules", False))
         self.uh_60l.setChecked(s.get("uh_60l", False))
         self.f4bc_phantom.setChecked(s.get("f4bc_phantom", False))
@@ -292,6 +305,7 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         self.f106_deltadart.setChecked(s.get("f106_deltadart", False))
         self.jas39_gripen.setChecked(s.get("jas39_gripen", False))
         self.sk_60.setChecked(s.get("sk_60", False))
+        self.mig31bm_foxhound.setChecked(s.get("mig31bm_foxhound", False))
         self.mirage_3.setChecked(s.get("mirage_3", False))
         self.super_etendard.setChecked(s.get("super_etendard", False))
         self.su30_flanker_h.setChecked(s.get("su30_flanker_h", False))
@@ -315,3 +329,4 @@ class GeneratorOptions(QtWidgets.QWizardPage):
         self.ukrainemilitaryassetspack.setChecked(
             s.get("ukrainemilitaryassetspack", False)
         )
+        self.tornado_adv.setChecked(s.get("tornado_adv", False))
