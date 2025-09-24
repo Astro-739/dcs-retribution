@@ -36,6 +36,18 @@ class DummyObject:
 class MigrationUnpickler(pickle.Unpickler):
     """Custom unpickler to migrate campaign save-files for when components have been moved"""
     def find_class(self, module: Any, name: str) -> Any:
+        if name == "Su_30MKA_AG":
+            from pydcs_extensions.su30 import Su_30MKA
+            return Su_30MKA
+        if name == "Su_30MKI_AG":
+            from pydcs_extensions.su30 import Su_30MKI
+            return Su_30MKI
+        if name == "Su_30SM_AG":
+            from pydcs_extensions.su30 import Su_30SM
+            return Su_30SM
+        if name == "Su_30MKM_AG":
+            from pydcs_extensions.su30 import Su_30MKM
+            return Su_30MKM
         if name == "NightMissions":
             from game.settings import NightMissions
             return NightMissions
@@ -72,6 +84,8 @@ class MigrationUnpickler(pickle.Unpickler):
             return DummyObject
         if name in ["CaletaTortel", "Caleta_Tortel_Airport"]:
             return dcs.terrain.Airport  # use base-class if airport was removed
+        if name == "Superbug_AITanker":
+            return pydcs_extensions.fa18efg.FA_18ET
         if module == "pydcs_extensions.f4b.f4b":
             return pydcs_extensions.f4
         if module == "pydcs_extensions.irondome.irondome":
@@ -106,6 +120,16 @@ class MigrationUnpickler(pickle.Unpickler):
             elif name == "Bas_100":
                 from dcs.terrain.kola.airports import Vuojarvi
                 return Vuojarvi
+            elif name == "Alakourtti":
+                from dcs.terrain.kola.airports import Alakurtti
+                return Alakurtti
+        if module == "dcs.terrain.sinai.airports":
+            if name == "Borj_El_Arab_International_Airport":
+                from dcs.terrain.sinai.airports import Borg_El_Arab_International_Airport
+                return Borg_El_Arab_International_Airport
+            elif name == "Palmahim":
+                from dcs.terrain.sinai.airports import Palmachim
+                return Palmachim
         if module == "dcs.terrain.syria.airports":
             if name == "Amman":
                 from dcs.terrain.syria.airports import Marka
@@ -191,6 +215,10 @@ def waypoint_debug_directory() -> Path:
 
 def settings_dir() -> Path:
     return _create_dir_if_needed(base_path() / "Retribution" / "Settings")
+
+
+def forced_options_path() -> Path:
+    return _create_dir_if_needed(base_path() / "Retribution") / "forced_options.lua"
 
 
 def airwing_dir() -> Path:

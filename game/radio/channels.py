@@ -219,6 +219,27 @@ class SCR522RadioChannelAllocator(RadioChannelAllocator):
         return "SCR-522"
 
 
+@dataclass(frozen=True)
+class ARC5RadioChannelAllocator(RadioChannelAllocator):
+    """Preset channel allocator for the ARC-5 WW2 radios. (4 channels)"""
+
+    def assign_channels_for_flight(
+        self, flight: FlightData, mission_data: MissionData
+    ) -> None:
+        radio_id = 1
+        flight.assign_channel(radio_id, 1, flight.intra_flight_channel)
+        if flight.departure.atc is not None:
+            flight.assign_channel(radio_id, 2, flight.departure.atc)
+        if flight.arrival.atc is not None:
+            flight.assign_channel(radio_id, 3, flight.arrival.atc)
+
+        # TODO : Some GCI on Channel 4 ?
+
+    @classmethod
+    def name(cls) -> str:
+        return "ARC-5"
+
+
 class ChannelNamer:
     """Base class allowing channel name customization per-aircraft.
 
@@ -269,7 +290,7 @@ class MirageChannelNamer(ChannelNamer):
 
     @staticmethod
     def channel_name(radio_id: int, channel_id: int) -> str:
-        radio_name = ["V/UHF", "UHF"][radio_id - 1]
+        radio_name = ["UHF", "V/UHF"][radio_id - 1]
         return f"{radio_name} Ch {channel_id}"
 
     @classmethod
@@ -374,6 +395,23 @@ class SCR522ChannelNamer(ChannelNamer):
     @classmethod
     def name(cls) -> str:
         return "SCR-522"
+
+
+class ARC5ChannelNamer(ChannelNamer):
+    """
+    Channel namer for F4U-1D Corsair
+    """
+
+    @staticmethod
+    def channel_name(radio_id: int, channel_id: int) -> str:
+        if channel_id > 3:
+            return "?"
+        else:
+            return f"Channel " + "1234"[channel_id - 1]
+
+    @classmethod
+    def name(cls) -> str:
+        return "ARC-5"
 
 
 class LegacyWarthogChannelNamer(ChannelNamer):

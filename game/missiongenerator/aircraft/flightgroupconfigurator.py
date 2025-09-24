@@ -173,24 +173,55 @@ class FlightGroupConfigurator:
         self, unit: FlyingUnit, member: FlightMember, laser_codes: list[Optional[int]]
     ) -> None:
         self.set_skill(unit, member)
+
         if (code := member.tgp_laser_code) is not None:
             laser_codes.append(code.code)
         else:
             laser_codes.append(None)
-        settings = self.flight.coalition.game.settings
-        if not member.is_player or not settings.plugins.get("ewrj"):
+
+        self.handle_ew_jamming(member, unit)
+
+    def handle_ew_jamming(self, member: FlightMember, unit: FlyingUnit) -> None:
+        if not member.is_player:
             return
+        settings = self.flight.coalition.game.settings
+        if not settings.plugin_option("ewrj"):
+            return
+        # Check if ecm_required option is enabled
         jammer_required = settings.plugin_option("ewrj.ecm_required")
-        if jammer_required:
-            ecm = WeaponType.JAMMER
-            if not member.loadout.has_weapon_of_type(ecm):
-                return
+        offensive_jammer = member.loadout.has_weapon_of_type(
+            WeaponType.OFFENSIVE_JAMMER
+        )
+        offensive_inbuilt = self.flight.squadron.aircraft.has_built_in_jamming
+        has_jammer = (
+            member.loadout.has_weapon_of_type(WeaponType.JAMMER) or offensive_jammer
+        )
+        built_in_jammer = (
+            self.flight.squadron.aircraft.has_built_in_ecm or offensive_inbuilt
+        )
+        if jammer_required and not (has_jammer or built_in_jammer):
+            return
+        # Create the original ewrj_menu_trigger for player flight members
         ewrj_menu_trigger = TriggerStart(comment=f"EWRJ-{unit.name}")
         ewrj_menu_trigger.add_action(DoScript(String(f'EWJamming("{unit.name}")')))
         self.mission.triggerrules.triggers.append(ewrj_menu_trigger)
         self.group.points[0].tasks[0] = OptReactOnThreat(
             OptReactOnThreat.Values.PassiveDefense
         )
+        # Create LUA Flags for Offensive Jamming in EW Script for Player Flights
+        if not (offensive_jammer or offensive_inbuilt):
+            return
+        ewrj_offensive_trigger = TriggerStart(
+            comment=f"Offensive Jammer Flag {unit.name}"
+        )
+        ewrj_offensive_trigger.add_action(
+            DoScript(
+                String(
+                    f'trigger.action.setUserFlag("offensive_jamming_{unit.name}", 1)'
+                )
+            )
+        )
+        self.mission.triggerrules.triggers.append(ewrj_offensive_trigger)
 
     def setup_radios(self) -> RadioFrequency:
         freq = self.flight.frequency
